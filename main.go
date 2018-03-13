@@ -285,8 +285,13 @@ func main() {
 		}
 
 		feed.Items = make([]*gorillaFeeds.Item, 0)
-
+		
 		for _, post := range posts[:config.MaxPosts] {
+
+			if post.Author == nil {
+				post.Author = &gofeed.Person{Name: "unknown"}
+			}
+
 			item := &gorillaFeeds.Item{
 				Source:      &gorillaFeeds.Link{Href: post.Feed.Link},
 				Title:       post.Title,
